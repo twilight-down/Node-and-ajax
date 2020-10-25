@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- 创建普通的HTML表单 -->
+    <form id="form">
+        <input type="text" name="username">
+        <input type="password" name="password">
+        <input type="button" id="btn" value="提交">
+    </form>
+    <script>
+        //获取按钮
+        var btn = document.getElementById('btn');
+        //获取表单
+        var form = document.getElementById('form');
+        //为按钮添加点击事件
+        btn.onclick = function() {
+            //将普通HTML表单转换为表单对象
+            var formData = new FormData(form);
+            //创建ajax对象
+            var xhr = new XMLHttpRequest();
+            //对ajax配置 必须是post 因为post放在send中 get方法是放在请求地址中
+            xhr.open('post', 'http://localhost:3000/formData');
+            //发送ajax请求
+            xhr.send(formData);
+            xhr.onload = function() {
+                //d对http状态码判断
+                if (xhr.status == 200) {
+                    console.log(xhr.responseText);
+                }
+            }
+        }
+    </script>
+
+</body>
+
+</html>

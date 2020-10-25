@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        var xhr = new XMLHttpRequest();
+        //0 创建了ajax对象但是没有配置
+        console.log(xhr.readyState);
+        xhr.open('get', 'http://localhost:3000/readystate');
+        //1 配置了ajax对象但是没有发送
+        console.log(xhr.readyState);
+
+        //调用监听事件 这个阶段ajax状态码在不停的发生变化 2：已经开始发送 
+        //3：已经接收到服务器端的部分数据了 4：服务器的响应数据已经接受完毕了
+        xhr.onreadystatechange = function() {
+            console.log(xhr.readyState);
+            if (xhr.readyState == 4) {
+                console.log(xhr.responseText);
+            }
+        }
+
+        xhr.send()
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- 创建普通的HTML表单 -->
+    <form id="form">
+        <input type="text" name="username">
+        <input type="password" name="password">
+        <input type="button" id="btn" value="提交">
+    </form>
+    <script>
+        //获取按钮
+        var btn = document.getElementById('btn');
+        //获取表单
+        var form = document.getElementById('form');
+        //为按钮添加点击事件
+        btn.onclick = function() {
+            //将普通HTML表单转换为表单对象
+            var formData = new FormData(form);
+
+            // get('key')获取表单对象属性的值
+            console.log(formData.get('username'));
+            // set('key','value');设置表单对象的值
+            formData.set('username', 'andy');
+            formData.append('username', 'anna')
+                //如果设置的属性存在则替换原属性的值 如果不存在则创建新属性
+            formData.set('age', '18');
+            //delete('key')删除表单对象属性中的值
+            formData.delete('password');
+            //append('key','value')追加值
+
+            //创建空表单对象
+            var f = new FormData();
+            f.append('sex', '男');
+            console.log(f.get('sex'));
+
+
+
+
+
+            //创建ajax对象
+            var xhr = new XMLHttpRequest();
+            //对ajax配置 必须是post 因为post放在send中 get方法是放在请求地址中
+            xhr.open('post', 'http://localhost:3000/formData');
+            //发送ajax请求
+            xhr.send(formData);
+            xhr.onload = function() {
+                //d对http状态码判断
+                if (xhr.status == 200) {
+                    console.log(xhr.responseText);
+                }
+            }
+        }
+    </script>
+
+</body>
+
+</html>

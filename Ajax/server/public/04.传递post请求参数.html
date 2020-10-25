@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <p>
+        <input type="text" name="" id="username">
+    </p>
+
+    <p>
+        <input type="text" name="" id="age">
+    </p>
+
+    <p>
+        <input type="button" name="" value="提交" id="btn">
+    </p>
+    <script>
+        //获取按钮元素
+        var btn = document.getElementById('btn');
+        var username = document.getElementById('username');
+        var age = document.getElementById('age');
+        //为按钮添加点击事件
+        btn.onclick = function() {
+            //创建ajax对象
+            var xhr = new XMLHttpRequest;
+
+            //获取表单数据
+            var nameValue = username.value;
+            var ageValue = age.value;
+
+            //拼接请求参数
+            var parmas = 'username=' + nameValue + '&age=' + ageValue;
+            // var parmas = {
+            //     username: 'andy',
+            //     age: 20
+            // }
+            // console.log(parmas);
+            //配置ajax对象
+            xhr.open('post', 'http://localhost:3000/post');
+            //设置请求参数的格式类型（post请求必须要设置的）
+            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+            //发送请求
+
+            xhr.send(parmas);
+            //获取服务器端响应的数据
+            xhr.onload = function() {
+                var responseText = JSON.parse(xhr.responseText)
+                console.log(responseText);
+            }
+        }
+    </script>
+</body>
+
+</html>
